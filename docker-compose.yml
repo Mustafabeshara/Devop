@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build: 
+      context: ./cloud-browser-backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=your-secret-key-here
+      - DATABASE_URL=sqlite:///database/app.db
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./cloud-browser-backend/database:/app/database
+      - ./cloud-browser-backend/logs:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Frontend (served by nginx)
+  frontend:
+    build:
+      context: ./cloud-browser-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Redis for session management
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Browser container template (scaled dynamically)
+  browser-template:
+    build:
+      context: ./cloud-browser-backend/docker
+      dockerfile: Dockerfile.browser
+    profiles:
+      - browser
+    environment:
+      - DISPLAY=:99
+    ports:
+      - "5900"
+      - "4444"
+    restart: "no"
+
+volumes:
+  redis_data:

@@ -1,0 +1,151 @@
+{
+  "folders": [
+    {
+      "name": "🌐 Kimi-Dev-72B Website",
+      "path": "."
+    },
+    {
+      "name": "🔧 Backend (Flask)",
+      "path": "./cloud-browser-backend"
+    },
+    {
+      "name": "⚛️ Frontend (React)",
+      "path": "./cloud-browser-frontend"
+    },
+    {
+      "name": "📚 Documentation",
+      "path": "./user_input_files/kimi-dev-website"
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "python.defaultInterpreterPath": "./cloud-browser-backend/venv/bin/python",
+    "python.formatting.provider": "black",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.organizeImports": true
+    },
+    "files.associations": {
+      "*.tsx": "typescriptreact",
+      "*.ts": "typescript",
+      "*.py": "python",
+      "*.md": "markdown"
+    },
+    "emmet.includeLanguages": {
+      "typescriptreact": "html",
+      "typescript": "html"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.flake8",
+      "ms-python.black-formatter",
+      "bradlc.vscode-tailwindcss",
+      "esbenp.prettier-vscode",
+      "ms-vscode.vscode-typescript-next",
+      "formulahendry.auto-rename-tag",
+      "christian-kohler.path-intellisense",
+      "ms-vscode.vscode-json",
+      "yzhang.markdown-all-in-one",
+      "ms-python.debugpy",
+      "ms-vscode.makefile-tools"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "🔧 Start Backend Server",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/cloud-browser-backend/src/main.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}/cloud-browser-backend",
+        "env": {
+          "FLASK_ENV": "development",
+          "FLASK_DEBUG": "1"
+        }
+      },
+      {
+        "name": "⚛️ Start Frontend Dev Server",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}/cloud-browser-frontend/node_modules/.bin/vite",
+        "args": ["dev"],
+        "cwd": "${workspaceFolder}/cloud-browser-frontend",
+        "console": "integratedTerminal"
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "🚀 Start Full Development Environment",
+        "type": "shell",
+        "command": "./dev-start.sh",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "🐳 Start with Docker",
+        "type": "shell",
+        "command": "docker-compose up --build",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "🔧 Install Backend Dependencies",
+        "type": "shell",
+        "command": "cd cloud-browser-backend && python -m pip install -r requirements.txt",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        }
+      },
+      {
+        "label": "⚛️ Install Frontend Dependencies",
+        "type": "shell",
+        "command": "cd cloud-browser-frontend && npm install",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        }
+      },
+      {
+        "label": "🌐 Open Live Website",
+        "type": "shell",
+        "command": "python -c \"import webbrowser; webbrowser.open('https://nybbgll9qi.space.minimax.io')\"",
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "silent"
+        }
+      }
+    ]
+  }
+}

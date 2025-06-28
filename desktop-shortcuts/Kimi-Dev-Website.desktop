@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Kimi-Dev-72B Website
+Comment=Launch Kimi-Dev-72B Cloud Browser Service
+Exec=bash -c "cd /workspace && ./dev-start.sh"
+Icon=/workspace/cloud-browser-frontend/src/assets/logo.png
+Terminal=true
+Categories=Development;WebDevelopment;
+StartupNotify=true
