@@ -1,0 +1,29 @@
+# Docker configuration for browser containers
+FROM selenium/standalone-firefox:latest
+
+USER root
+
+# Install VNC server and additional tools
+RUN apt-get update && apt-get install -y \
+    x11vnc \
+    xvfb \
+    fluxbox \
+    wget \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configure VNC
+RUN mkdir -p /root/.vnc
+RUN x11vnc -storepasswd nopassword /root/.vnc/passwd
+
+# Configure Fluxbox
+RUN mkdir -p /root/.fluxbox
+RUN echo "session.screen0.workspaces: 1" > /root/.fluxbox/init
+
+# Set up startup script
+COPY start-browser.sh /start-browser.sh
+RUN chmod +x /start-browser.sh
+
+EXPOSE 5900 4444
+
+CMD ["/start-browser.sh"]
